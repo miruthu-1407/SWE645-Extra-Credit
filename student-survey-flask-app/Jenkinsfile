@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'student-survey-flask-app'
+        IMAGE_TAG = 'latest'
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                      docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                      docker push $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-id', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f kubernetes/'
+                }
+            }
+        }
+    }
+}
