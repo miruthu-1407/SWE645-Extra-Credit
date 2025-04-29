@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'student-survey-flask-app'
         IMAGE_TAG = 'latest'
+        DOCKER_USER = 'miruthula14'
     }
 
     stages {
@@ -13,11 +14,11 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Tag & Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                     sh '''
-                      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                      echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
                       docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
                       docker push $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
                     '''
