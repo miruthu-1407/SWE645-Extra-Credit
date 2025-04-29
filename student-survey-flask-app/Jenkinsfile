@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        dockerfile {
+            filename 'jenkins/Dockerfile'  // Path to the custom Dockerfile that includes kubectl
+            dir '.'                        // Build context root
+        }
+    }
 
     environment {
         IMAGE_NAME = 'student-survey-flask-app'
@@ -29,8 +34,8 @@ pipeline {
                 dir('student-survey-flask-app') {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                         sh '''
-                          docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
-                          docker push $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                            docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+                            docker push $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
                         '''
                     }
                 }
