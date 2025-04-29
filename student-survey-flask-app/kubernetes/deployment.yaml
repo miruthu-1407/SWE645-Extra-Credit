@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student-survey-deployment
+  name: student-survey-app
+  labels:
+    app: student-survey
 spec:
   replicas: 1
   selector:
@@ -13,8 +15,7 @@ spec:
         app: student-survey
     spec:
       containers:
-      - name: student-survey-container
-        image: student-survey-flask-app:latest
-        imagePullPolicy: Never
+      - name: student-survey
+        image: miruthula14/student-survey-flask-app:latest
         ports:
         - containerPort: 5000
