@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/miruthu-1407/SWE645-Extra-Credit.git', branch: 'main'
