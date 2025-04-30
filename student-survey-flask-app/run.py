@@ -4,6 +4,11 @@ import os
 
 app = Flask(__name__)
 
+# Root route for simple frontend-backend connection check
+@app.route('/')
+def home():
+    return "✅ Backend is up and running!"
+
 @app.route('/survey', methods=['GET', 'POST'])
 def survey():
     if request.method == 'POST':
@@ -40,8 +45,5 @@ def get_surveys():
                 surveys.append(row)
     return jsonify(surveys)
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000)
-
+    app.run(host='0.0.0.0', port=5000, debug=True)
