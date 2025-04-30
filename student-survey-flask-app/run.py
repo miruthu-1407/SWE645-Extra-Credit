@@ -7,7 +7,7 @@ app = Flask(__name__)
 # MySQL RDS configuration
 DB_HOST = "database-3.cpmwkabzwidn.us-east-1.rds.amazonaws.com"
 DB_USER = "admin"
-DB_PASSWORD = "StrongPassword123!"  # <-- replace with your real password
+DB_PASSWORD = "StrongPassword123!"  # Replace with your real password
 DB_NAME = "surveydb"
 
 # Route to confirm backend is running
@@ -48,7 +48,7 @@ def survey():
             connection.close()
 
         return "✅ Survey form submitted successfully!"
-    
+
     return render_template('survey.html')
 
 # API to return all surveys as JSON
