@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Survey Form</title>
+    <style>
+        body {
+            background-color: #A3C6A4;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background-color: #D5E8D4;
+            border-radius: 10px;
+            padding: 20px;
+            width: 60%;
+            margin: 50px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: none;
+            border: 1px solid #888;
+        }
+
+        #zip,
+        #phone,
+        #email,
+        #raffle,
+        #comments {
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 12px 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+        }
+
+        #zip::placeholder,
+        #phone::placeholder,
+        #email::placeholder,
+        #raffle::placeholder,
+        #comments::placeholder {
+            color: gray;
+        }
+
+        #zip:focus,
+        #phone:focus,
+        #email:focus,
+        #raffle:focus,
+        #comments:focus {
+            outline: none;
+            border: 1px solid #5A4FCF;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            margin: 10px 0;
+        }
+
+        .checkbox-group label,
+        .radio-group label {
+            display: block;
+            margin-left: 20px;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons input[type="submit"],
+        .buttons input[type="reset"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .buttons input[type="reset"] {
+            background-color: #c03;
+        }
+
+        .buttons input[type="submit"]:hover,
+        .buttons input[type="reset"]:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Student Survey Form</h2>
+        <form method="POST" action="/api/surveys">
+            <label class="required" for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]+" required>
+
+            <label class="required" for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" pattern="[A-Za-z]+" required>
+
+            <label class="required" for="streetAddress">Street Address:</label>
+            <input type="text" id="streetAddress" name="streetAddress" pattern="[A-Za-z0-9\s,.#-]+" required>
+
+            <label class="required" for="city">City:</label>
+            <input type="text" id="city" name="city" pattern="[A-Za-z\s]+" required>
+
+            <label class="required" for="state">State:</label>
+            <input type="text" id="state" name="state" pattern="[A-Za-z\s]+" required>
+
+            <label class="required" for="zip">ZIP Code:</label>
+            <input type="text" id="zip" name="zip" placeholder="Enter 5-digit (e.g., 12345)" pattern="[0-9]{5}"
+                required>
+
+            <label class="required" for="telephoneNumber">Telephone Number:</label>
+            <input type="tel" id="telephoneNumber" name="telephoneNumber" placeholder="Enter 10-digit phone number"
+                pattern="[0-9]{10}" required>
+
+            <label class="required" for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="@gmail.com"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+
+            <label class="required" for="dateOfSurvey">Survey Date:</label>
+            <input type="date" id="dateOfSurvey" name="dateOfSurvey" required>
+
+            <label>What did you like most about the campus?</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="campusLikes" value="Students"> Students</label>
+                <label><input type="checkbox" name="campusLikes" value="Location"> Location</label>
+                <label><input type="checkbox" name="campusLikes" value="Campus"> Campus</label>
+                <label><input type="checkbox" name="campusLikes" value="Atmosphere"> Atmosphere</label>
+                <label><input type="checkbox" name="campusLikes" value="Dorm Rooms"> Dorm Rooms</label>
+                <label><input type="checkbox" name="campusLikes" value="Sports"> Sports</label>
+            </div>
+
+            <label>How did you become interested in the university?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="interestSource" value="Friends" required> Friends</label>
+                <label><input type="radio" name="interestSource" value="Television" required> Television</label>
+                <label><input type="radio" name="interestSource" value="Internet" required> Internet</label>
+                <label><input type="radio" name="interestSource" value="Other" required> Other</label>
+            </div>
+
+            <label for="recommendationLikelihood">Would you recommend this university to others:</label>
+            <select id="recommendationLikelihood" name="recommendationLikelihood">
+                <option value="Very Likely">Very Likely</option>
+                <option value="Likely">Likely</option>
+                <option value="Unlikely">Unlikely</option>
+            </select>
+
+            <label class="required" for="raffle">Raffle Number (Enter at least 10 comma-separated numbers between 1 and
+                100):</label>
+            <input type="text" id="raffle" name="raffle" placeholder="e.g., 5,12,23,34,45,56,67,78,89,90"
+                pattern="^(\d{1,2}|100)(,\s*(\d{1,2}|100)){9,}$" required>
+
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Your feedback here..."></textarea>
+
+            <div class="buttons">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Cancel">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
