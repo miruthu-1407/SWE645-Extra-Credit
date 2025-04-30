@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template, jsonify
-import mysql.connector
+from flask import Flask, request, render_template, jsonify # type: ignore
+import mysql.connector # type: ignore
 import os
 
 app = Flask(__name__)
@@ -77,10 +77,10 @@ def submit_survey():
 def fetch_surveys():
     try:
         connection = mysql.connector.connect(
-            host=DB_HOST,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            database=DB_NAME
+            host="database-3.cpmtwkabzwidn.us-east-1.rds.amazonaws.com",
+            user="admin",
+            password="StrongPassword123!",
+            database="surveydb"
         )
         cursor = connection.cursor(dictionary=True)
         cursor.execute("SELECT * FROM surveys")
