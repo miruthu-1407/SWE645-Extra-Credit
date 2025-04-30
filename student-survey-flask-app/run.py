@@ -8,7 +8,7 @@ app = Flask(__name__)
 db_config = {
     'host': 'database-3.cpmwkabzwidn.us-east-1.rds.amazonaws.com',
     'user': 'admin',
-    'password': 'YOUR_PASSWORD',  # Replace with your actual password
+    'password': 'StrongPassword123!',  # Replace with your actual password
     'database': 'surveydb'
 }
 
