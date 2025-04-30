@@ -6,14 +6,12 @@ pipeline {
     }
 
     stages {
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-
         stage('Checkout') {
             steps {
+                script {
+                    // Clean up the workspace before checkout
+                    deleteDir()
+                }
                 git url: 'https://github.com/miruthu-1407/SWE645-Extra-Credit.git', branch: 'main'
             }
         }
@@ -53,7 +51,6 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploy stage (to be implemented or uncommented as needed)'
-                // Add deployment logic here if needed
             }
         }
     }
