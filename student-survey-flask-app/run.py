@@ -7,7 +7,7 @@ app = Flask(__name__)
 # MySQL RDS credentials
 DB_HOST = "database-3.cpmtwkabzwidn.us-east-1.rds.amazonaws.com"
 DB_USER = "admin"
-DB_PASSWORD = "your_password_here"  # 🔁 REPLACE with your RDS password
+DB_PASSWORD = "StrongPassword123!"  # 🔁 REPLACE with your RDS password
 DB_NAME = "surveydb"
 
 @app.route('/')
