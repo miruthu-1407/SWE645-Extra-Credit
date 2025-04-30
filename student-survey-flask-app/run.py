@@ -4,25 +4,22 @@ import os
 
 app = Flask(__name__)
 
-# ✅ Health check route
+# Health check route
 @app.route('/')
 def home():
     return "✅ Backend is up and running!"
 
-# ✅ Test API endpoint to verify backend is accessible
-@app.route('/ping')
-def ping():
-    return "pong"
-
-# ✅ Survey form route (GET: render form, POST: save data)
+# Main survey form page
 @app.route('/survey', methods=['GET', 'POST'])
 def survey():
     if request.method == 'POST':
         if request.is_json:
+            # JSON data (e.g., from API tools)
             data = request.get_json()
             print("Received JSON data:", data)
             return jsonify({"message": "Survey data (JSON) received successfully!"}), 200
         else:
+            # Form data (from frontend HTML form)
             form_data = request.form.to_dict(flat=True)
             print("Received Form Data:", form_data)
 
@@ -34,11 +31,11 @@ def survey():
                     writer.writeheader()
                 writer.writerow(form_data)
 
-            return "✅ Survey submitted successfully!"
+            return "✅ Survey form submitted successfully!"
 
-    return render_template('survey.html')  # GET: render form
+    return render_template('survey.html')
 
-# ✅ API route to fetch survey data
+# API route to get submitted surveys
 @app.route('/api/surveys', methods=['GET'])
 def get_surveys():
     surveys = []
@@ -49,6 +46,5 @@ def get_surveys():
                 surveys.append(row)
     return jsonify(surveys)
 
-# ✅ Run the app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
